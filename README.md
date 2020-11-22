@@ -1,11 +1,13 @@
 # courier-retrofit-java-client
 
-Retrofit Java Client to interact with Courier APIs 
+Retrofit Java Client to interact with Courier APIs
+
+[Offical Courer API docs](https://docs.courier.com/reference/introduction)
 
 ## Install, Configure and Run
 
 * Install dependencies through Maven
-* Get Courier API KEY from courier.com and 
+* Get Courier API KEY from courier.com
 * Add it to Java Environment Variables as COURIER_API_KEY
 * Run `CourierClientApp` with params of your choice or use services/interfaces
 
