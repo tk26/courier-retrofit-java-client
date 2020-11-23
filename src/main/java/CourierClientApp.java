@@ -1,9 +1,6 @@
 import com.google.gson.Gson;
 import models.*;
-import services.BrandsService;
-import services.EventsService;
-import services.MessagesService;
-import services.SendService;
+import services.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -126,5 +123,33 @@ public class CourierClientApp {
         System.out.println(myBrandUpdated);
 
         new BrandsService().deleteBrand(myBrand.getId(), System.getenv(COURIER_API_KEY));
+
+        /*
+        Preferences API
+         */
+        Preferences preferences = new PreferencesService()
+                .getPreferences(System.getenv(COURIER_API_KEY));
+        System.out.println(preferences);
+
+        // Assuming categoryId GG6QK23WS5MEXEQ7832W6ZVBKBS8 exists
+        // Assuming notificationId WPK2HQ07FXMGT7MH8JVXEZEFZ2G8 exists
+        Preference newPreference = new Preference();
+        HashMap<String, Object> categoriesMap = new HashMap<String, Object>();
+        categoriesMap.put("GG6QK23WS5MEXEQ7832W6ZVBKBS8", new Object());
+        HashMap<String, Object> notificationsMap = new HashMap<String, Object>();
+        notificationsMap.put("WPK2HQ07FXMGT7MH8JVXEZEFZ2G8", new Object());
+        newPreference.setCategories(categoriesMap);
+        newPreference.setNotifications(notificationsMap);
+        PreferenceUpdateResponseBody preferenceUpdateResponseBody = new PreferencesService()
+                .putPreference(
+                        "hello@example.com",
+                        newPreference,
+                        System.getenv(COURIER_API_KEY)
+                );
+        System.out.println(preferenceUpdateResponseBody);
+
+        Preference preference = new PreferencesService()
+                .getPreference("hello@example.com", System.getenv(COURIER_API_KEY));
+        System.out.println(preference);
     }
 }
