@@ -17,4 +17,4 @@ Retrofit Java Client to interact with Courier APIs
 
 ## Author
 
-[Tejas Kumthekar](https://github.com/tk26) ([me@tejaskumthekar.com](mailto:support@trycourier.com))
+[Tejas Kumthekar](https://github.com/tk26) ([me@tejaskumthekar.com](mailto:me@tejaskumthekar.com))
