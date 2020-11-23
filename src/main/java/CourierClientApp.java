@@ -1,10 +1,12 @@
 import com.google.gson.Gson;
 import models.*;
+import services.BrandsService;
 import services.EventsService;
 import services.MessagesService;
 import services.SendService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -80,5 +82,49 @@ public class CourierClientApp {
         Event newEventResponse = new EventsService()
                 .putEvent("WELCOME_BACK", newEventRequest, System.getenv(COURIER_API_KEY));
         System.out.println(newEventResponse);
+
+        /*
+        Brands API
+         */
+        BrandCreateBody brandCreateBody = new BrandCreateBody();
+        brandCreateBody.setName("tejas-test");
+        Settings settings = new Settings();
+        Colors colors = new Colors();
+        colors.setPrimary("blue");
+        settings.setColors(colors);
+        brandCreateBody.setSettings(settings);
+        Snippets snippets = new Snippets();
+        SnippetItem snippetItem = new SnippetItem();
+        snippetItem.setName("foo");
+        snippetItem.setValue("bar");
+        snippetItem.setFormat("handlebars");
+        ArrayList<SnippetItem> snippetItems = new ArrayList<SnippetItem>();
+        snippetItems.add(snippetItem);
+        snippets.setItems(snippetItems);
+        brandCreateBody.setSnippets(snippets);
+        Brand brand = new BrandsService()
+                .postBrand(brandCreateBody, System.getenv(COURIER_API_KEY));
+        System.out.println(brand);
+
+        Brand myBrand = new BrandsService()
+                .getBrand(brand.getId(), System.getenv(COURIER_API_KEY));
+        System.out.println(myBrand);
+
+        Brands brands = new BrandsService()
+                .getBrands(System.getenv(COURIER_API_KEY));
+        System.out.println(brands);
+
+        BrandUpdateBody brandUpdateBody = new BrandUpdateBody();
+        brandUpdateBody.setName("tejas-test-updated");
+        Settings updatedSettings = myBrand.getSettings();
+        Colors updatedColors = updatedSettings.getColors();
+        updatedColors.setPrimary("red");
+        updatedSettings.setColors(updatedColors);
+        brandUpdateBody.setSettings(updatedSettings);
+        Brand myBrandUpdated = new BrandsService()
+                .putBrand(myBrand.getId(), brandUpdateBody, System.getenv(COURIER_API_KEY));
+        System.out.println(myBrandUpdated);
+
+        new BrandsService().deleteBrand(myBrand.getId(), System.getenv(COURIER_API_KEY));
     }
 }
