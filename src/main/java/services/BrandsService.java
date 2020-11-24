@@ -60,13 +60,13 @@ public class BrandsService {
         ).execute().body();
     }
 
-    public Void deleteBrand(
+    public void deleteBrand(
             String brandId,
             String token
     ) throws IOException {
-        return brandsInterface.deleteBrand(
+        brandsInterface.deleteBrand(
                 brandId,
                 "Bearer " + token
-        ).execute().body();
+        ).execute();
     }
 }

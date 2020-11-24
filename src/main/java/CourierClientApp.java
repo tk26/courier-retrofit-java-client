@@ -193,5 +193,22 @@ public class CourierClientApp {
         ProfileLists profileLists = new ProfilesService()
                 .getProfileLists("5ed558d4-d2eb-4e0f-984a-81a0f04054b1", null, System.getenv(COURIER_API_KEY));
         System.out.println(profileLists);
+
+        /*
+        Lists API
+         */
+        PureLists lists = new ListsService()
+                .getLists(null, null, System.getenv(COURIER_API_KEY));
+        System.out.println(lists);
+
+        models.List list = new ListsService()
+                .getList("tejas.list.test", System.getenv(COURIER_API_KEY));
+        System.out.println(list);
+
+        ListUpdateBody listUpdateBody = new ListUpdateBody();
+        listUpdateBody.setName("Updated list name");
+        new ListsService().putList("tejas.list.test", listUpdateBody, System.getenv(COURIER_API_KEY));
+
+        new ListsService().deleteList("tejas.list.test", System.getenv(COURIER_API_KEY));
     }
 }
