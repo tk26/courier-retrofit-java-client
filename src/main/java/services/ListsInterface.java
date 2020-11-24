@@ -2,6 +2,8 @@ package services;
 
 import models.ListUpdateBody;
 import models.PureLists;
+import models.ListBulkSubscriptionUpdate;
+import models.ListSubscriptions;
 import models.List;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -30,6 +32,40 @@ public interface ListsInterface {
     @DELETE("/lists/{listId}")
     Call<Void> deleteList(
             @Path("listId") String listId,
+            @Header("Authorization") String authorization
+    );
+
+    @PUT("/lists/{listId}/restore")
+    Call<Void> restoreList(
+            @Path("listId") String listId,
+            @Header("Authorization") String authorization
+    );
+
+    @GET("/lists/{listId}/subscriptions")
+    Call<ListSubscriptions> getListSubscriptions(
+            @Path("listId") String listId,
+            @Query("cursor") String cursor,
+            @Header("Authorization") String authorization
+    );
+
+    @PUT("/lists/{listId}/subscriptions")
+    Call<Void> bulkSubscribeRecipientsToList(
+            @Path("listId") String listId,
+            @Body ListBulkSubscriptionUpdate bulkSubscriptionUpdate,
+            @Header("Authorization") String authorization
+    );
+
+    @PUT("/lists/{listId}/subscriptions/{recipientId}")
+    Call<Void> subscribeRecipientToList(
+            @Path("listId") String listId,
+            @Path("recipientId") String recipientId,
+            @Header("Authorization") String authorization
+    );
+
+    @DELETE("/lists/{listId}/subscriptions/{recipientId}")
+    Call<Void> unsubscribeRecipientFromList(
+            @Path("listId") String listId,
+            @Path("recipientId") String recipientId,
             @Header("Authorization") String authorization
     );
 }

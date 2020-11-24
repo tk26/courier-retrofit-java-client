@@ -210,5 +210,26 @@ public class CourierClientApp {
         new ListsService().putList("tejas.list.test", listUpdateBody, System.getenv(COURIER_API_KEY));
 
         new ListsService().deleteList("tejas.list.test", System.getenv(COURIER_API_KEY));
+
+        new ListsService().restoreList("tejas.list.test", System.getenv(COURIER_API_KEY));
+
+        ListSubscriptions listSubscriptions = new ListsService()
+                .getListSubscriptions("tejas.list.test", null, System.getenv(COURIER_API_KEY));
+        System.out.println(listSubscriptions);
+
+        ListBulkSubscriptionUpdate bulkSubscriptionUpdate = new ListBulkSubscriptionUpdate();
+        Recipient recipient = new Recipient();
+        recipient.setRecipientId("5ed558d4-d2eb-4e0f-984a-81a0f04054b1");
+        List<Recipient> recipients = new ArrayList<Recipient>();
+        recipients.add(recipient);
+        bulkSubscriptionUpdate.setRecipients(recipients);
+        new ListsService()
+                .bulkSubscribeRecipientToList("tejas.list.test", bulkSubscriptionUpdate, System.getenv(COURIER_API_KEY));
+
+        new ListsService()
+                .unsubscribeRecipientFromList("tejas.list.test", "5ed558d4-d2eb-4e0f-984a-81a0f04054b1", System.getenv(COURIER_API_KEY));
+
+        new ListsService()
+                .subscribeRecipientToList("tejas.list.test", "5ed558d4-d2eb-4e0f-984a-81a0f04054b1", System.getenv(COURIER_API_KEY));
     }
 }

@@ -1,6 +1,8 @@
 package services;
 
 import models.List;
+import models.ListBulkSubscriptionUpdate;
+import models.ListSubscriptions;
 import models.ListUpdateBody;
 import models.PureLists;
 import retrofit2.Retrofit;
@@ -59,6 +61,64 @@ public class ListsService {
     ) throws IOException {
         listsInterface.deleteList(
                 listId,
+                "Bearer " + token
+        ).execute();
+    }
+
+    public void restoreList(
+            String listId,
+            String token
+    ) throws IOException {
+        listsInterface.restoreList(
+                listId,
+                "Bearer " + token
+        ).execute();
+    }
+
+    public ListSubscriptions getListSubscriptions(
+            String listId,
+            String cursor,
+            String token
+    ) throws IOException {
+        return listsInterface.getListSubscriptions(
+                listId,
+                cursor,
+                "Bearer " + token
+        ).execute().body();
+    }
+
+    public void bulkSubscribeRecipientToList(
+            String listId,
+            ListBulkSubscriptionUpdate bulkSubscriptionUpdate,
+            String token
+    ) throws IOException {
+        listsInterface.bulkSubscribeRecipientsToList(
+                listId,
+                bulkSubscriptionUpdate,
+                "Bearer " + token
+        ).execute();
+    }
+
+    public void subscribeRecipientToList(
+            String listId,
+            String recipientId,
+            String token
+    ) throws IOException {
+        listsInterface.subscribeRecipientToList(
+                listId,
+                recipientId,
+                "Bearer " + token
+        ).execute();
+    }
+
+    public void unsubscribeRecipientFromList(
+            String listId,
+            String recipientId,
+            String token
+    ) throws IOException {
+        listsInterface.unsubscribeRecipientFromList(
+                listId,
+                recipientId,
                 "Bearer " + token
         ).execute();
     }
