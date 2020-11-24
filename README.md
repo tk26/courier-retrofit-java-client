@@ -2,7 +2,7 @@
 
 Retrofit Java Client to interact with Courier APIs
 
-[Offical Courer API docs](https://docs.courier.com/reference/introduction)
+[Official Courier API docs](https://docs.courier.com/reference/introduction)
 
 ## Install, Configure and Run
 

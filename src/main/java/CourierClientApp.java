@@ -5,6 +5,7 @@ import services.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class CourierClientApp {
@@ -140,7 +141,7 @@ public class CourierClientApp {
         notificationsMap.put("WPK2HQ07FXMGT7MH8JVXEZEFZ2G8", new Object());
         newPreference.setCategories(categoriesMap);
         newPreference.setNotifications(notificationsMap);
-        PreferenceUpdateResponseBody preferenceUpdateResponseBody = new PreferencesService()
+        UpdateResponseBody preferenceUpdateResponseBody = new PreferencesService()
                 .putPreference(
                         "hello@example.com",
                         newPreference,
@@ -151,5 +152,46 @@ public class CourierClientApp {
         Preference preference = new PreferencesService()
                 .getPreference("hello@example.com", System.getenv(COURIER_API_KEY));
         System.out.println(preference);
+
+        /*
+        Profiles API
+         */
+        Profile myProfile = new Profile();
+        HashMap<String, String> details = new HashMap<String, String>();
+        details.put("email", "foo@bar.com");
+        details.put("phone_number", "123456789");
+        myProfile.setProfile(details);
+        UpdateResponseBody postResponseBody = new ProfilesService()
+                .postProfile("5ed558d4-d2eb-4e0f-984a-81a0f04054b1", myProfile, System.getenv(COURIER_API_KEY));
+        System.out.println(postResponseBody);
+
+        Profile retrievedProfile = new ProfilesService()
+                .getProfile("5ed558d4-d2eb-4e0f-984a-81a0f04054b1", System.getenv(COURIER_API_KEY));
+        System.out.println(retrievedProfile);
+
+        PatchRequestBody profilePatch = new PatchRequestBody();
+        List<PatchOperation> patchOps = new ArrayList<PatchOperation>();
+        PatchOperation patchOperation = new PatchOperation();
+        patchOperation.setOp("replace");
+        patchOperation.setPath("/email");
+        patchOperation.setValue("bar@foo.com");
+        patchOps.add(patchOperation);
+        profilePatch.setPatch(patchOps);
+        UpdateResponseBody patchResponseBody = new ProfilesService()
+                .patchProfile("5ed558d4-d2eb-4e0f-984a-81a0f04054b1", profilePatch, System.getenv(COURIER_API_KEY));
+        System.out.println(patchResponseBody);
+
+        Profile myUpdatedProfile = new Profile();
+        HashMap<String, String> updatedDetails = new HashMap<String, String>();
+        updatedDetails.put("email", "foo@bar.com");
+        updatedDetails.put("phone_number", "123456789");
+        myUpdatedProfile.setProfile(updatedDetails);
+        UpdateResponseBody putResponseBody = new ProfilesService()
+                .putProfile("5ed558d4-d2eb-4e0f-984a-81a0f04054b1", myUpdatedProfile, System.getenv(COURIER_API_KEY));
+        System.out.println(putResponseBody);
+
+        ProfileLists profileLists = new ProfilesService()
+                .getProfileLists("5ed558d4-d2eb-4e0f-984a-81a0f04054b1", null, System.getenv(COURIER_API_KEY));
+        System.out.println(profileLists);
     }
 }

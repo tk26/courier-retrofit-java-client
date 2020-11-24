@@ -7,6 +7,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PreferenceUpdateResponseBody {
-    private String status;
+public class PatchOperation {
+    private String op;
+    private String path;
+    private String value;
 }

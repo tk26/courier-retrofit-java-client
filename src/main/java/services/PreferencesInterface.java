@@ -1,7 +1,7 @@
 package services;
 
 import models.Preference;
-import models.PreferenceUpdateResponseBody;
+import models.UpdateResponseBody;
 import models.Preferences;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -19,7 +19,7 @@ public interface PreferencesInterface {
     );
 
     @PUT("/preferences/{recipientId}")
-    Call<PreferenceUpdateResponseBody> putPreference(
+    Call<UpdateResponseBody> putPreference(
             @Path("recipientId") String recipientId,
             @Body Preference preference,
             @Header("Authorization") String authorization

@@ -1,7 +1,7 @@
 package services;
 
 import models.Preference;
-import models.PreferenceUpdateResponseBody;
+import models.UpdateResponseBody;
 import models.Preferences;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -37,7 +37,7 @@ public class PreferencesService {
         ).execute().body();
     }
 
-    public PreferenceUpdateResponseBody putPreference(
+    public UpdateResponseBody putPreference(
             String recipientId,
             Preference preference,
             String token
