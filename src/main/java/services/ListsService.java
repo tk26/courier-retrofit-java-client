@@ -5,8 +5,6 @@ import models.ListBulkSubscriptionUpdate;
 import models.ListSubscriptions;
 import models.ListUpdateBody;
 import models.PureLists;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
@@ -14,112 +12,99 @@ public class ListsService {
     private final ListsInterface listsInterface;
 
     public ListsService() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.courier.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        listsInterface = retrofit.create(ListsInterface.class);
+        listsInterface = Courier.getRetrofit().create(ListsInterface.class);
     }
 
     public PureLists getLists(
             String cursor,
-            String pattern,
-            String token
+            String pattern
     ) throws IOException {
         return listsInterface.getLists(
                 cursor,
                 pattern,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public List getList(
-            String listId,
-            String token
+            String listId
     ) throws IOException {
         return listsInterface.getList(
                 listId,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public void putList(
             String listId,
-            ListUpdateBody listUpdateBody,
-            String token
+            ListUpdateBody listUpdateBody
     ) throws IOException {
         listsInterface.putList(
                 listId,
                 listUpdateBody,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute();
     }
 
     public void deleteList(
-            String listId,
-            String token
+            String listId
     ) throws IOException {
         listsInterface.deleteList(
                 listId,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute();
     }
 
     public void restoreList(
-            String listId,
-            String token
+            String listId
     ) throws IOException {
         listsInterface.restoreList(
                 listId,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute();
     }
 
     public ListSubscriptions getListSubscriptions(
             String listId,
-            String cursor,
-            String token
+            String cursor
     ) throws IOException {
         return listsInterface.getListSubscriptions(
                 listId,
                 cursor,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public void bulkSubscribeRecipientToList(
             String listId,
-            ListBulkSubscriptionUpdate bulkSubscriptionUpdate,
-            String token
+            ListBulkSubscriptionUpdate bulkSubscriptionUpdate
     ) throws IOException {
         listsInterface.bulkSubscribeRecipientsToList(
                 listId,
                 bulkSubscriptionUpdate,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute();
     }
 
     public void subscribeRecipientToList(
             String listId,
-            String recipientId,
-            String token
+            String recipientId
     ) throws IOException {
         listsInterface.subscribeRecipientToList(
                 listId,
                 recipientId,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute();
     }
 
     public void unsubscribeRecipientFromList(
             String listId,
-            String recipientId,
-            String token
+            String recipientId
     ) throws IOException {
         listsInterface.unsubscribeRecipientFromList(
                 listId,
                 recipientId,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute();
     }
 }

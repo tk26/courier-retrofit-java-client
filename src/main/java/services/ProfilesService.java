@@ -4,8 +4,6 @@ import models.PatchRequestBody;
 import models.Profile;
 import models.ProfileLists;
 import models.UpdateResponseBody;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
@@ -13,68 +11,59 @@ public class ProfilesService {
     private final ProfilesInterface profilesInterface;
 
     public ProfilesService() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.courier.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        profilesInterface = retrofit.create(ProfilesInterface.class);
+        profilesInterface = Courier.getRetrofit().create(ProfilesInterface.class);
     }
 
     public Profile getProfile(
-            String recipientId,
-            String token
+            String recipientId
     ) throws IOException {
         return profilesInterface.getProfile(
                 recipientId,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public UpdateResponseBody postProfile(
             String recipientId,
-            Profile profile,
-            String token
+            Profile profile
     ) throws IOException {
         return profilesInterface.postProfile(
                 recipientId,
                 profile,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public UpdateResponseBody patchProfile(
             String recipientId,
-            PatchRequestBody patchRequestBody,
-            String token
+            PatchRequestBody patchRequestBody
     ) throws IOException {
         return profilesInterface.patchProfile(
                 recipientId,
                 patchRequestBody,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public UpdateResponseBody putProfile(
             String recipientId,
-            Profile profile,
-            String token
+            Profile profile
     ) throws IOException {
         return profilesInterface.putProfile(
                 recipientId,
                 profile,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public ProfileLists getProfileLists(
             String recipientId,
-            String cursor,
-            String token
+            String cursor
     ) throws IOException {
         return profilesInterface.getProfileLists(
                 recipientId,
                 cursor,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 }

@@ -4,8 +4,6 @@ import models.Brand;
 import models.BrandCreateBody;
 import models.BrandUpdateBody;
 import models.Brands;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
@@ -13,60 +11,51 @@ public class BrandsService {
     private final BrandsInterface brandsInterface;
 
     public BrandsService() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.courier.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        brandsInterface = retrofit.create(BrandsInterface.class);
+        brandsInterface = Courier.getRetrofit().create(BrandsInterface.class);
     }
 
     public Brands getBrands(
-            String token
     ) throws IOException {
         return brandsInterface.getBrands(
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public Brand getBrand(
-            String brandId,
-            String token
+            String brandId
     ) throws IOException {
         return brandsInterface.getBrand(
                 brandId,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public Brand postBrand(
-            BrandCreateBody brand,
-            String token
+            BrandCreateBody brand
     ) throws IOException {
         return brandsInterface.postBrand(
                 brand,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public Brand putBrand(
             String brandId,
-            BrandUpdateBody brand,
-            String token
+            BrandUpdateBody brand
     ) throws IOException {
         return brandsInterface.putBrand(
                 brandId,
                 brand,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public void deleteBrand(
-            String brandId,
-            String token
+            String brandId
     ) throws IOException {
         brandsInterface.deleteBrand(
                 brandId,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute();
     }
 }

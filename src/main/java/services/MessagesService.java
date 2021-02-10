@@ -3,8 +3,6 @@ package services;
 import models.Message;
 import models.MessageHistory;
 import models.Messages;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
@@ -12,11 +10,7 @@ public class MessagesService {
     private final MessagesInterface messagesInterface;
 
     public MessagesService() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.courier.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        messagesInterface = retrofit.create(MessagesInterface.class);
+        messagesInterface = Courier.getRetrofit().create(MessagesInterface.class);
     }
 
     public Messages getMessages(
@@ -25,8 +19,7 @@ public class MessagesService {
             String list,
             String messageId,
             String notification,
-            String recipient,
-            String token
+            String recipient
     ) throws IOException {
         return messagesInterface.getMessages(
                 cursor,
@@ -35,29 +28,27 @@ public class MessagesService {
                 messageId,
                 notification,
                 recipient,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public Message getMessage(
-            String messageId,
-            String token
+            String messageId
     ) throws IOException {
         return messagesInterface.getMessage(
                 messageId,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 
     public MessageHistory getMessageHistory(
             String messageId,
-            String type,
-            String token
+            String type
     ) throws IOException {
         return messagesInterface.getMessageHistory(
                 messageId,
                 type,
-                "Bearer " + token
+                Courier.getAuthorizationHeader()
         ).execute().body();
     }
 }
