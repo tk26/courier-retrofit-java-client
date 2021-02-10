@@ -18,19 +18,22 @@ public interface MessagesInterface {
             @Query("messageId") String messageId,
             @Query("notification") String notification,
             @Query("recipient") String recipient,
-            @Header("Authorization") String authorization
+            @Header("Authorization") String authorization,
+            @Header("User-Agent") String userAgent
     );
 
     @GET("/messages/{messageId}")
     Call<Message> getMessage(
             @Path("messageId") String messageId,
-            @Header("Authorization") String authorization
+            @Header("Authorization") String authorization,
+            @Header("User-Agent") String userAgent
     );
 
     @GET("/messages/{messageId}/history")
     Call<MessageHistory> getMessageHistory(
             @Path("messageId") String messageId,
             @Query("type") String type,
-            @Header("Authorization") String authorization
+            @Header("Authorization") String authorization,
+            @Header("User-Agent") String userAgent
     );
 }

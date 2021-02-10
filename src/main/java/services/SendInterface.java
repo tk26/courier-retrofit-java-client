@@ -9,16 +9,25 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface SendInterface {
-    // TODO support Idempotent Requests
     @POST("/send")
     Call<SendResponseBody> send(
             @Body SendRequestBody sendRequestBody,
-            @Header("Authorization") String authorization
+            @Header("Authorization") String authorization,
+            @Header("User-Agent") String userAgent
+    );
+
+    @POST("/send")
+    Call<SendResponseBody> sendIdempotent(
+            @Body SendRequestBody sendRequestBody,
+            @Header("Authorization") String authorization,
+            @Header("User-Agent") String userAgent,
+            @Header("Idempotency-Key") String idempotencyKey
     );
 
     @POST("/send/list")
     Call<SendResponseBody> sendToList(
             @Body SendListRequestBody sendListRequestBody,
-            @Header("Authorization") String authorization
+            @Header("Authorization") String authorization,
+            @Header("User-Agent") String userAgent
     );
 }

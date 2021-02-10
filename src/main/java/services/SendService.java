@@ -18,7 +18,20 @@ public class SendService {
     ) throws IOException {
         return sendInterface.send(
                 sendRequestBody,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
+        ).execute().body();
+    }
+
+    public SendResponseBody sendIdempotent(
+            SendRequestBody sendRequestBody,
+            String idempotencyKey
+    ) throws IOException {
+        return sendInterface.sendIdempotent(
+                sendRequestBody,
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent(),
+                idempotencyKey
         ).execute().body();
     }
 
@@ -27,7 +40,8 @@ public class SendService {
     ) throws IOException {
         return sendInterface.sendToList(
                 sendListRequestBody,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 }

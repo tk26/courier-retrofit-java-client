@@ -22,7 +22,8 @@ public class ListsService {
         return listsInterface.getLists(
                 cursor,
                 pattern,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -31,7 +32,8 @@ public class ListsService {
     ) throws IOException {
         return listsInterface.getList(
                 listId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -42,7 +44,8 @@ public class ListsService {
         listsInterface.putList(
                 listId,
                 listUpdateBody,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute();
     }
 
@@ -51,7 +54,8 @@ public class ListsService {
     ) throws IOException {
         listsInterface.deleteList(
                 listId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute();
     }
 
@@ -60,7 +64,8 @@ public class ListsService {
     ) throws IOException {
         listsInterface.restoreList(
                 listId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute();
     }
 
@@ -71,7 +76,8 @@ public class ListsService {
         return listsInterface.getListSubscriptions(
                 listId,
                 cursor,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -82,7 +88,8 @@ public class ListsService {
         listsInterface.bulkSubscribeRecipientsToList(
                 listId,
                 bulkSubscriptionUpdate,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute();
     }
 
@@ -93,7 +100,8 @@ public class ListsService {
         listsInterface.subscribeRecipientToList(
                 listId,
                 recipientId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute();
     }
 
@@ -104,7 +112,8 @@ public class ListsService {
         listsInterface.unsubscribeRecipientFromList(
                 listId,
                 recipientId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute();
     }
 }

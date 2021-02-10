@@ -28,7 +28,8 @@ public class MessagesService {
                 messageId,
                 notification,
                 recipient,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -37,7 +38,8 @@ public class MessagesService {
     ) throws IOException {
         return messagesInterface.getMessage(
                 messageId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -48,7 +50,8 @@ public class MessagesService {
         return messagesInterface.getMessageHistory(
                 messageId,
                 type,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 }

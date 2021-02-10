@@ -28,6 +28,10 @@ public class CourierClientApp {
         SendResponseBody sendResponseBody1 = new SendService().send(sendRequestBody);
         System.out.println(sendResponseBody1);
 
+        SendResponseBody idempotentSend = new SendService()
+                .sendIdempotent(sendRequestBody, UUID.randomUUID().toString());
+        System.out.println(idempotentSend);
+
         SendListRequestBody sendListRequestBody = new SendListRequestBody();
         sendListRequestBody.setList("tejas.list.test");
         sendListRequestBody.setEvent("TEST_WELCOME");

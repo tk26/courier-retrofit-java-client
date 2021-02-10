@@ -12,6 +12,7 @@ public class Courier {
     private static String password;
     private static String authorizationHeader;
     private static Retrofit retrofit;
+    private static String version = "1.0.0";
 
     private Courier() {
     }
@@ -91,5 +92,9 @@ public class Courier {
                 .baseUrl(Courier.getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+    }
+
+    public static String getUserAgent() {
+        return "courier-java/" + Courier.version;
     }
 }

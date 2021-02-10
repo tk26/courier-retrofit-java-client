@@ -12,19 +12,22 @@ import retrofit2.http.PUT;
 public interface EventsInterface {
     @GET("/events")
     Call<Events> getEvents(
-            @Header("Authorization") String authorization
+            @Header("Authorization") String authorization,
+            @Header("User-Agent") String userAgent
     );
 
     @GET("/events/{eventId}")
     Call<Event> getEvent(
             @Path("eventId") String eventId,
-            @Header("Authorization") String authorization
+            @Header("Authorization") String authorization,
+            @Header("User-Agent") String userAgent
     );
 
     @PUT("/events/{eventId}")
     Call<Event> putEvent(
             @Path("eventId") String eventId,
             @Body Event event,
-            @Header("Authorization") String authorization
+            @Header("Authorization") String authorization,
+            @Header("User-Agent") String userAgent
     );
 }

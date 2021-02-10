@@ -19,7 +19,8 @@ public class ProfilesService {
     ) throws IOException {
         return profilesInterface.getProfile(
                 recipientId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -30,7 +31,8 @@ public class ProfilesService {
         return profilesInterface.postProfile(
                 recipientId,
                 profile,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -41,7 +43,8 @@ public class ProfilesService {
         return profilesInterface.patchProfile(
                 recipientId,
                 patchRequestBody,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -52,7 +55,8 @@ public class ProfilesService {
         return profilesInterface.putProfile(
                 recipientId,
                 profile,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -63,7 +67,8 @@ public class ProfilesService {
         return profilesInterface.getProfileLists(
                 recipientId,
                 cursor,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 }

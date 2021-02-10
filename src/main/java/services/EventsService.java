@@ -15,7 +15,8 @@ public class EventsService {
     public Events getEvents(
     ) throws IOException {
         return eventsInterface.getEvents(
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -24,7 +25,8 @@ public class EventsService {
     ) throws IOException {
         return eventsInterface.getEvent(
                 eventId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -35,7 +37,8 @@ public class EventsService {
         return eventsInterface.putEvent(
                 eventId,
                 event,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 }

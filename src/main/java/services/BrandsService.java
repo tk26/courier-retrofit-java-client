@@ -17,7 +17,8 @@ public class BrandsService {
     public Brands getBrands(
     ) throws IOException {
         return brandsInterface.getBrands(
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -26,7 +27,8 @@ public class BrandsService {
     ) throws IOException {
         return brandsInterface.getBrand(
                 brandId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -35,7 +37,8 @@ public class BrandsService {
     ) throws IOException {
         return brandsInterface.postBrand(
                 brand,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -46,7 +49,8 @@ public class BrandsService {
         return brandsInterface.putBrand(
                 brandId,
                 brand,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -55,7 +59,8 @@ public class BrandsService {
     ) throws IOException {
         brandsInterface.deleteBrand(
                 brandId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute();
     }
 }

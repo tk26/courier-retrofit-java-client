@@ -16,7 +16,8 @@ public class PreferencesService {
     public Preferences getPreferences(
     ) throws IOException {
         return preferencesInterface.getPreferences(
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -25,7 +26,8 @@ public class PreferencesService {
     ) throws IOException {
         return preferencesInterface.getPreference(
                 recipientId,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 
@@ -36,7 +38,8 @@ public class PreferencesService {
         return preferencesInterface.putPreference(
                 recipientId,
                 preference,
-                Courier.getAuthorizationHeader()
+                Courier.getAuthorizationHeader(),
+                Courier.getUserAgent()
         ).execute().body();
     }
 }
